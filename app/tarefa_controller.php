@@ -1,8 +1,8 @@
 <?php 
 
-    echo '<pre>';
-    print_r($_POST);
-    echo '</pre>';
+    // echo '<pre>';
+    // print_r($_POST);
+    // echo '</pre>';
 
     require "../app/tarefa.model.php";
     require "../app/tarefa.service.php";
@@ -17,9 +17,5 @@
     $tarefaService = new TarefaService($conexao, $tarefa);
     $tarefaService->inserir();
 
-    echo '<pre>';
-    print_r($tarefaService);
-    echo '</pre>';
-
-    
+    header("location: nova_tarefa.php?inclusao=1");
 ?>
