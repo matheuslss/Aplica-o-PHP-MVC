@@ -8,14 +8,20 @@
     require "../app/tarefa.service.php";
     require "../app/conexao.php";
 
-    $tarefa = new Tarefa();
+    $acao = isset($_GET['acao']) ? $_GET['acao'] : $acao;
 
-    $tarefa->__set("tarefa", $_POST["tarefa"]);
+    if($acao == 'inserir'){
+        $tarefa = new Tarefa();
 
-    $conexao = new Conexao();
+        $tarefa->__set("tarefa", $_POST["tarefa"]);
 
-    $tarefaService = new TarefaService($conexao, $tarefa);
-    $tarefaService->inserir();
+        $conexao = new Conexao();
 
-    header("location: nova_tarefa.php?inclusao=1");
+        $tarefaService = new TarefaService($conexao, $tarefa);
+        $tarefaService->inserir();
+
+        header("location: nova_tarefa.php?inclusao=1");
+    } else if ($acao == "recuperar"){
+        echo "Chegamos até aqui";
+    }
 ?>
