@@ -1,12 +1,12 @@
 <?php 
 
-    // echo '<pre>';
-    // print_r($_POST);
-    // echo '</pre>';
+    echo '<pre>';
+    print_r($_POST);
+    echo '</pre>';
 
-    require "../tarefa.model.php";
-    require "../tarefa.service.php";
-    require "../conexao.php";
+    require "../app/tarefa.model.php";
+    require "../app/tarefa.service.php";
+    require "../app/conexao.php";
 
     $tarefa = new Tarefa();
 
@@ -14,7 +14,7 @@
 
     $conexao = new Conexao();
 
-    $tarefaService = new TarefaService();
-    
+    $tarefaService = new TarefaService($conexao, $tarefa);
+
     
 ?>
