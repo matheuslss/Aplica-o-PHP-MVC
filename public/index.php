@@ -19,6 +19,60 @@
 		<link rel="stylesheet" href="css/estilo.css">
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+
+		<script>
+			function editar(id, txt_tarefa){
+				//formulario de edicao
+				let form = document.createElement("form");
+				form.action = "index.php?pag=index&acao=atualizar";
+				form.method = "post";
+				form.className = "row";
+
+				//input para entrada do texto
+				let inputTarefa = document.createElement("input");
+				inputTarefa.type = "text";
+				inputTarefa.name = "tarefa";
+				inputTarefa.className = "col-9 form-control";
+				inputTarefa.value = txt_tarefa;
+
+				//input hidden para guardar o id da tarefa
+				inputId = document.createElement("input");
+				inputId.type = "hidden";
+				inputId.name = "id";
+				inputId.value = id;
+
+				//button para enviar o formulario
+				let button = document.createElement("button");
+				button.type = "submit";
+				button.className = "col-3 btn btn-info";
+				button.innerHTML = "Atualizar";
+
+				//organizando a hierarquia do form
+				form.appendChild(inputTarefa);
+				form.appendChild(inputId);
+				form.appendChild(button);
+
+				// console.log(form);
+
+				//selecionar a div tarefa
+				let tarefa = document.getElementById("tarefa_"+id);
+
+				//limpar o texto da tarefa para a inclusao do form
+				tarefa.innerHTML = "";
+
+				//incluir form na pagina
+				tarefa.insertBefore(form, tarefa[0]);
+
+			}
+
+			function remover(id){
+				location.href = "index.php?pag=index&acao=remover&id="+id;
+			}
+
+			function marcarRealizada(id){
+				location.href = "index.php?pag=index&acao=marcarRealizada&id=" +id;
+			}
+		</script>
 	</head>
 
 	<body>
@@ -52,7 +106,7 @@
 
 									<div class="row mb-3 d-flex align-items-center tarefa">
 										<div class="col-sm-9" id="tarefa_<?= $tarefa->id?>">
-											<?= $tarefa->tarefa ?>
+											<?= $tarefa->tarefa ?> (<?= $tarefa->status ?>)
 										</div>
 										<div class="col-sm-3 mt-2 d-flex justify-content-between">
 											<i class="fas fa-trash-alt fa-lg text-danger" onclick="remover(<?= $tarefa->id ?>)"></i>
