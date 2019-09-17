@@ -37,7 +37,7 @@
         if($tarefas = $tarefaService->atualizar()){
             header("location: todas_tarefas.php");
         } 
-    } else if ($acao = "remover"){
+    } else if ($acao == "remover"){
         $conexao = new Conexao();
         $tarefa = new Tarefa();
         $tarefa->__set('id', $_GET['id']);
@@ -46,5 +46,21 @@
         $tarefas = $tarefaService->remover();
         header("location: todas_tarefas.php");
 
+    } else if ($acao == "marcarRealizada"){
+        $conexao = new Conexao();
+        $tarefa = new Tarefa();
+        $tarefa->__set('id', $_GET['id'])
+            ->__set('id_status', 2);
+            
+        $tarefaService = new TarefaService($conexao, $tarefa);
+        $tarefaService->marcarRealizada();
+        header("location: todas_tarefas.php");
+    } else if ($acao == "recuperarTarefasPendentes"){
+        $conexao = new Conexao();
+        $tarefa = new Tarefa();
+        $tarefa->__set('id_status', 1);
+
+        $tarefaService = new TarefaService($conexao, $tarefa);
+        $tarefas = $tarefaService->recuperarTarefasPendentes();
     }
 ?>
